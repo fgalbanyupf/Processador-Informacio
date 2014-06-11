@@ -1,0 +1,92 @@
+            
+<Schema name="BaseSchema">
+  <Dimension name="Country">
+    <Hierarchy primaryKey="code" hasAll="true">
+      <Table name="country"/>
+      <Level uniqueMembers="false" name="Code" column="code"/>
+      <Level uniqueMembers="false" name="country" column="name"/>
+    </Hierarchy>
+  </Dimension>	
+
+  <Dimension name="Page Language">
+    <Hierarchy hasAll="true" primaryKey="id">
+      <Table name="page_fields"/>
+      <Level name="Language Confidence" column="p_langconf" uniqueMembers="false"/>
+      <Level name="Language Code" column="p_langcode" uniqueMembers="false"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="Server Location">
+    <Hierarchy hasAll="true" primaryKey="id">
+      <Table name="page_fields"/>
+      <Level name="Server Country" column="p_server_country" uniqueMembers="false"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="Page per Country">
+    <Hierarchy hasAll="true" primaryKey="id">
+      <Table name="page_fields"/>
+      <Level name="Server Country" column="p_server_country" uniqueMembers="false"/>      
+      <Level name="Language Code" column="p_langcode" uniqueMembers="false"/>      
+      <Level name="Domain" column="domain" uniqueMembers="false"/>      
+      <!--<Level name="IP address" column="p_ip" uniqueMembers="false"/>
+      <Level name="Parent URL" column="parentUrl" uniqueMembers="false"/>      -->
+      <Level name="URL" column="url" uniqueMembers="true" hideMemberIf="Never"/>      
+       <!-- <Property name="Crawling Session" column="session_id"/>      
+        <Property name="IP address" column="p_ip"/>
+        <Property name="Parent URL" column="parentUrl"/>
+        <Property name="Date added" column="dateAdd"/>
+        <Property name="Language Confidence" column="p_langconf"/>
+      </Level>-->
+<!--      <Level name="Crawling Session" column="session_id" uniqueMembers="false"/>
+      <Level name="Date added" column="dateAdd" uniqueMembers="false"/>-->
+      <Level name="IP address" column="p_ip" uniqueMembers="false"/>
+      <Level name="Charset" column="charset" uniqueMembers="false"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="Page per Language">
+    <Hierarchy hasAll="true" primaryKey="id">
+      <Table name="page_fields"/>
+      <Level name="Language Code" column="p_langcode" uniqueMembers="false"/>            
+      <Level name="Server Country" column="p_server_country" uniqueMembers="false"/>      
+      <Level name="Domain" column="domain" uniqueMembers="false"/>      
+      <!--<Level name="IP address" column="p_ip" uniqueMembers="false"/>
+      <Level name="Parent URL" column="parentUrl" uniqueMembers="false"/>      -->
+      <Level name="URL" column="url" uniqueMembers="true" hideMemberIf="Never"/>      
+       <!-- <Property name="Crawling Session" column="session_id"/>      
+        <Property name="IP address" column="p_ip"/>
+        <Property name="Parent URL" column="parentUrl"/>
+        <Property name="Date added" column="dateAdd"/>
+        <Property name="Language Confidence" column="p_langconf"/>
+      </Level>-->
+<!--      <Level name="Crawling Session" column="session_id" uniqueMembers="false"/>
+      <Level name="Date added" column="dateAdd" uniqueMembers="false"/>-->
+      <Level name="IP address" column="p_ip" uniqueMembers="false"/>
+      <Level name="Charset" column="charset" uniqueMembers="false"/>
+    </Hierarchy>
+  </Dimension>  
+  <Dimension name="Crawling Session">
+    <Hierarchy hasAll="true" primaryKey="id">
+      <Table name="page_fields"/>
+      <Level name="Crawling Session" column="session_id" uniqueMembers="false"/>
+    </Hierarchy>
+  </Dimension>
+  <Cube enabled="true" visible="true" cache="true" name="General">
+    <Table name="page_fields"/>
+    <DimensionUsage source="Crawling Session" name="Crawling Session" foreignKey="id"/>
+    <DimensionUsage source="Page Language" name="Page Language"
+                    foreignKey="id"/>  
+    <DimensionUsage source="Page per Country" name="Page per Country" foreignKey="id"/>
+    <DimensionUsage source="Page per Language" name="Page per Language"
+                    foreignKey="id"/>   
+    
+    <Dimension type="StandardDimension" visible="true" foreignKey="id" highCardinality="false" name="E-mail">
+      <Hierarchy name="Hierarchy E-mail" visible="true" hasAll="true" primaryKey="id" primaryKeyTable="p_emails_table">
+        <Table name="p_emails_table"/>
+        <Level name="E-mail" visible="true" column="p_emails" uniqueMembers="false" levelType="Regular" hideMemberIf="Never"/>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="Language Confidence AVG" column="p_langconf" aggregator="avg" visible="true"/>
+    <Measure name="COUNT" column="url" aggregator="count" visible="true"/>
+  </Cube>
+  
+</Schema>
+

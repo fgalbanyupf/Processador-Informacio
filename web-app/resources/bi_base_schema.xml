@@ -1,0 +1,8 @@
+            
+<Schema name="BaseSchema">
+  <Cube enabled="true" visible="true" cache="true" name="General">
+    <Table name="page_fields"/>
+  </Cube>
+  
+</Schema>
+
