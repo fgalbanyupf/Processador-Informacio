@@ -2,6 +2,7 @@ Processador-Informacio
 ======================
 Projecte en Grails que fa d'interfície de comunicació entre la informació provinent
 d'un Crawler (veure projecte CrawlerWebService) i Saiku. 
+
 Característiques
 * Definició del model de dades
 * Definició de l'estructura de les dades al sistema de BI
