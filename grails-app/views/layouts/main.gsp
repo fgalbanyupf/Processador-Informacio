@@ -89,6 +89,9 @@
                     
                 <!--<a href="http://144.76.200.86:8080">[LOGO]</a>-->
                 <div id="toolBar"  style="position:absolute; top:10px; left:25px;width:500px;height:70px">
+                    <b><g:message code="application.crawlerTools.label" default="Web crawling" /></b><br/>
+                    <g:link controller="crawlerSession"><g:message code="crawlerSession.label" default="Crawler Session" /></g:link>
+                    <br/>
                     <b><g:message code="application.dbTools.label" default="Database definition" /></b><br/>
                     <g:link controller="DBField"><g:message code="DBField.label" default="Database Field" /></g:link> | 
                     <g:link controller="DBPlugin"><g:message code="DBPlugin.label" default="Database Plugin" /></g:link> 
@@ -98,9 +101,7 @@
                     <g:link controller="BIMeasure"><g:message code="BIMeasure.label" default="Measure" /></g:link> |
                     <g:link controller="BISchemaTemplate"><g:message code="BISchemaTemplate.label" default="Schema Template" /></g:link> | 
                     <b><a href="${grailsApplication.config.bisystem.link}"><g:message code="application.accessSaiku.label" default="Go to Saiku" /></a></b>
-                    <br/>
-                    <b><g:message code="application.crawlerTools.label" default="Web crawling" /></b><br/>
-                    <g:link controller="crawlerSession"><g:message code="crawlerSession.label" default="Crawler Session" /></g:link>
+                    
                 </div>
 
                 <div id="status" style="position:absolute; top:5px; right:5px;width:500px;height:90px">

@@ -26,11 +26,14 @@ class CrawlerSessionController {
     }
     
     def ajaxCrawlerStatus(CrawlerSession crawlerSessionInstance) {
-        def result = ['status':crawlerSessionInstance.status.toString()]
+        def result = ['status':crawlerSessionInstance.status.toString(), 'pageCount':crawlerSessionInstance.pageCount]
         render result as JSON
     }
     
+    @Transactional(rollbackFor = java.net.ConnectException.class)
     def stop(CrawlerSession crawlerSessionInstance) {
+        crawlerSessionInstance.status = "stopping"
+        crawlerSessionInstance.save flush:true
         def stopCrawlerResponse=""
         try{
             def client = new SOAPClient(grailsApplication.config.crawler.webserviceURL)
@@ -42,10 +45,44 @@ class CrawlerSessionController {
                 }
             }
             stopCrawlerResponse = response.stopCrawlerResponse
-        }catch(Exception e){
             
+            //CrawlerStatusUpdaterJob.schedule(new Date(),[:])
+        }catch(Exception e){
+
         }
-        respond crawlerSessionInstance, view:'show'
+        
+        redirect(action: "show", id: crawlerSessionInstance.id)
+        //respond crawlerSessionInstance, view:'show'
+    }
+    
+    @Transactional(rollbackFor = java.net.ConnectException.class)
+    def resume(CrawlerSession crawlerSessionInstance) {
+        crawlerSessionInstance.running = true
+        crawlerSessionInstance.status = "running"
+        crawlerSessionInstance.save flush:true
+        
+        //Start crawler
+        def client = new SOAPClient(grailsApplication.config.crawler.webserviceURL)
+        def response = client.send{
+            body {
+                startCrawler('xmlns':'http://crawlerws.pfc.ratzia.com/') {
+                    sessionId(crawlerSessionInstance.id)
+                    jail(crawlerSessionInstance.jail)
+                    numCrawlers(crawlerSessionInstance.numCrawlers)
+                    depth(crawlerSessionInstance.depth)
+                    seed(crawlerSessionInstance.seed)
+                }
+            }
+        }
+        redirect(action: "show", id: crawlerSessionInstance.id)
+        /*request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.created.message', args: [message(code: 'crawlerSessionInstance.label', default: 'CrawlerSession'), crawlerSessionInstance.id])
+                redirect crawlerSessionInstance
+            }
+            '*' { respond crawlerSessionInstance, [status: OK] }
+        }
+        respond crawlerSessionInstance, view:'show'*/
     }
 
     def create() {

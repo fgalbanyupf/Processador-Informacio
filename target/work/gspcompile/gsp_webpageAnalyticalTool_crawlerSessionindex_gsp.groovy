@@ -54,51 +54,58 @@ expressionOut.print(flash.message)
 printHtmlPart(12)
 }
 printHtmlPart(13)
-invokeTag('sortableColumn','g',28,['property':("seed"),'title':(message(code: 'crawlerSession.seed.label', default: 'Seed'))],-1)
+invokeTag('sortableColumn','g',27,['property':("id"),'title':(message(code: 'crawlerSession.id.label', default: 'Identifier'))],-1)
 printHtmlPart(14)
-invokeTag('sortableColumn','g',30,['property':("numCrawlers"),'title':(message(code: 'crawlerSession.numCrawlers.label', default: 'Num Crawlers'))],-1)
-printHtmlPart(14)
-invokeTag('sortableColumn','g',32,['property':("depth"),'title':(message(code: 'crawlerSession.depth.label', default: 'Depth'))],-1)
-printHtmlPart(14)
-invokeTag('sortableColumn','g',34,['property':("dateCreated"),'title':(message(code: 'crawlerSession.dateCreated.label', default: 'Date Created'))],-1)
-printHtmlPart(14)
-invokeTag('sortableColumn','g',36,['property':("jail"),'title':(message(code: 'crawlerSession.jail.label', default: 'Jail'))],-1)
+invokeTag('sortableColumn','g',29,['property':("seed"),'title':(message(code: 'crawlerSession.seed.label', default: 'Seed'))],-1)
 printHtmlPart(15)
+invokeTag('sortableColumn','g',31,['property':("numCrawlers"),'title':(message(code: 'crawlerSession.numCrawlers.label', default: 'Num Crawlers'))],-1)
+printHtmlPart(16)
+invokeTag('sortableColumn','g',33,['property':("depth"),'title':(message(code: 'crawlerSession.depth.label', default: 'Depth'))],-1)
+printHtmlPart(17)
+invokeTag('sortableColumn','g',35,['property':("dateCreated"),'title':(message(code: 'crawlerSession.dateCreated.label', default: 'Date Created'))],-1)
+printHtmlPart(15)
+invokeTag('sortableColumn','g',37,['property':("jail"),'title':(message(code: 'crawlerSession.jail.label', default: 'Jail'))],-1)
+printHtmlPart(18)
 loop:{
 int i = 0
 for( crawlerSessionInstance in (crawlerSessionInstanceList) ) {
-printHtmlPart(16)
+printHtmlPart(19)
 expressionOut.print((i % 2) == 0 ? 'even' : 'odd')
-printHtmlPart(17)
+printHtmlPart(20)
+createTagBody(3, {->
+expressionOut.print(fieldValue(bean: crawlerSessionInstance, field: "id"))
+})
+invokeTag('link','g',44,['action':("show"),'id':(crawlerSessionInstance.id),'class':("urlWidth")],3)
+printHtmlPart(21)
 createTagBody(3, {->
 expressionOut.print(fieldValue(bean: crawlerSessionInstance, field: "seed"))
 })
-invokeTag('link','g',44,['action':("show"),'id':(crawlerSessionInstance.id),'class':("urlWidth")],3)
-printHtmlPart(18)
+invokeTag('link','g',45,['action':("show"),'id':(crawlerSessionInstance.id),'class':("urlWidth")],3)
+printHtmlPart(22)
 expressionOut.print(fieldValue(bean: crawlerSessionInstance, field: "numCrawlers"))
-printHtmlPart(18)
+printHtmlPart(23)
 expressionOut.print(fieldValue(bean: crawlerSessionInstance, field: "depth"))
-printHtmlPart(18)
-invokeTag('formatDate','g',50,['date':(crawlerSessionInstance.dateCreated)],-1)
-printHtmlPart(18)
+printHtmlPart(24)
+invokeTag('formatDate','g',51,['date':(crawlerSessionInstance.dateCreated)],-1)
+printHtmlPart(22)
 expressionOut.print(fieldValue(bean: crawlerSessionInstance, field: "jail"))
-printHtmlPart(19)
+printHtmlPart(25)
 i++
 }
 }
-printHtmlPart(20)
-invokeTag('paginate','g',59,['total':(crawlerSessionInstanceCount ?: 0)],-1)
-printHtmlPart(21)
+printHtmlPart(26)
+invokeTag('paginate','g',60,['total':(crawlerSessionInstanceCount ?: 0)],-1)
+printHtmlPart(27)
 })
-invokeTag('captureBody','sitemesh',62,[:],1)
-printHtmlPart(22)
+invokeTag('captureBody','sitemesh',63,[:],1)
+printHtmlPart(28)
 }
 public static final Map JSP_TAGS = new HashMap()
 protected void init() {
 	this.jspTags = JSP_TAGS
 }
 public static final String CONTENT_TYPE = 'text/html;charset=UTF-8'
-public static final long LAST_MODIFIED = 1401974740000L
+public static final long LAST_MODIFIED = 1403788515000L
 public static final String EXPRESSION_CODEC = 'html'
 public static final String STATIC_CODEC = 'none'
 public static final String OUT_CODEC = 'html'

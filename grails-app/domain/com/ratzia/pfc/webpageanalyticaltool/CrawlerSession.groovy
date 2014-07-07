@@ -12,6 +12,7 @@ class CrawlerSession {
     String status=""
     int numCrawlers=1
     int depth=4
+    long pageCount=0
     String seed
     boolean running=true
     

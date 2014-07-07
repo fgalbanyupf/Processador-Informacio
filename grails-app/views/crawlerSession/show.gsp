@@ -13,7 +13,20 @@
                         $('#ajaxCrawlerSpinner').fadeIn();
                         var jqxhr = $.getJSON( url, function(data) {
                             $('#statusContainer').html(data.status)
+                            $('#pageCountContainer').html(data.pageCount)
                             $('#ajaxCrawlerSpinner').fadeOut();
+                            
+                            if(data.status == "running"){
+                                $('#stopCrawler').fadeIn();
+                            }else{
+                                $('#stopCrawler').fadeOut();
+                            }
+                            
+                            if(data.status == "canceled"){
+                                $('#resumeCrawler').fadeIn();
+                            }else{
+                                $('#resumeCrawler').fadeOut();
+                            }
                         })
                         .always(function() {
                               setTimeout(updateCrawlerStatus,2000); //2s.
@@ -38,7 +51,12 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<ol class="property-list crawlerSession">
-			
+                                <li class="fieldcontain">
+					<span id="seed-label" class="property-label"><g:message code="crawlerSession.id.label" default="Identifier" /></span>
+					
+						<span class="property-value" aria-labelledby="seed-label"><g:fieldValue bean="${crawlerSessionInstance}" field="id"/></span>
+					
+				</li>
 				<g:if test="${crawlerSessionInstance?.seed}">
 				<li class="fieldcontain">
 					<span id="seed-label" class="property-label"><g:message code="crawlerSession.seed.label" default="Seed" /></span>
@@ -94,18 +112,31 @@
 				</g:if>
                                 
 				<li class="fieldcontain" style="position:relative">
-                                    <span class="property-label"><b>Status</b></span>
+                                    <span class="property-label"><b><g:message code="crawlerSession.status.label" default="Status" /></b></span>
 					
 						<span id="statusContainer" class="property-value" >${crawlerSessionInstance?.status}</span><img id="ajaxCrawlerSpinner" style="position:absolute;top:0px;left:80px;" src="${resource(dir:'images',file:'spinner_arr_whitebg.gif')}" alt="${message(code:'spinner.alt',default:'Loading...')}" />
 					
 				</li>
-                                <g:if test="${crawlerSessionInstance?.running}">
-                                <li class="fieldcontain">    
+                                
+                                <li class="fieldcontain" style="position:relative">
+                                    <span class="property-label"><b><g:message code="crawlerSession.pageCount.label" default="Page count" /></b></span>
+					
+						<span id="pageCountContainer" class="property-value" >${crawlerSessionInstance?.pageCount}</span>
+					
+				</li>
+                                
+                                <li id="stopCrawler" class="fieldcontain" style="display:none">    
                                     <ul>
                                         <li><g:link class="edit" action="stop" resource="${crawlerSessionInstance}"><g:message code="crawlerSession.stop.label" default="Stop" /></g:link></li>
                                     </ul>
                                 </li>
-                                </g:if>
+                                
+                                <li id="resumeCrawler" class="fieldcontain" style="display:none">    
+                                    <ul>
+                                        <li><g:link class="edit" action="resume" resource="${crawlerSessionInstance}"><g:message code="crawlerSession.resume.label" default="Resume" /></g:link></li>
+                                    </ul>
+                                </li>
+                                
 			</ol>
                         
                         

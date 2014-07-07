@@ -38,9 +38,26 @@ class CrawlerStatusUpdaterJob {
                     if((crawlerSession.status != "running") && (crawlerSession.status != "stopping")){
                         crawlerSession.running = false
                     }
-                    crawlerSession.save()
+                    //crawlerSession.save()
                 }catch(Exception e){
                 }
+                
+                try{
+                    def client = new SOAPClient(grailsApplication.config.crawler.webserviceURL)
+                    def response = client.send{
+                        body {
+                            crawlerPageCount('xmlns':'http://crawlerws.pfc.ratzia.com/') {
+                                sessionId(crawlerSession.id)
+                            }
+                        }
+                    }
+                    crawlerSession.pageCount = Long.parseLong(response.crawlerPageCountResponse.return.toString(),10)
+                    
+                }catch(Exception e){
+                    e.printStackTrace()
+                }
+                println "EOO"
+                crawlerSession.save()
             }
 
             //Regain the object

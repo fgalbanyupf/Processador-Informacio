@@ -24,32 +24,33 @@
 			<table>
 			<thead>
 					<tr>
-					
+                                                <g:sortableColumn property="id" title="${message(code: 'crawlerSession.id.label', default: 'Identifier')}" />
+                                                
 						<g:sortableColumn property="seed" title="${message(code: 'crawlerSession.seed.label', default: 'Seed')}" />
 					
-						<g:sortableColumn property="numCrawlers" title="${message(code: 'crawlerSession.numCrawlers.label', default: 'Num Crawlers')}" />
+						<!--<g:sortableColumn property="numCrawlers" title="${message(code: 'crawlerSession.numCrawlers.label', default: 'Num Crawlers')}" />
 					
-						<g:sortableColumn property="depth" title="${message(code: 'crawlerSession.depth.label', default: 'Depth')}" />
+						<g:sortableColumn property="depth" title="${message(code: 'crawlerSession.depth.label', default: 'Depth')}" />-->
 					
 						<g:sortableColumn property="dateCreated" title="${message(code: 'crawlerSession.dateCreated.label', default: 'Date Created')}" />
 					
-						<g:sortableColumn property="jail" title="${message(code: 'crawlerSession.jail.label', default: 'Jail')}" />
+						<!--<g:sortableColumn property="jail" title="${message(code: 'crawlerSession.jail.label', default: 'Jail')}" />-->
 					
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${crawlerSessionInstanceList}" status="i" var="crawlerSessionInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
+                                                <td><g:link action="show" id="${crawlerSessionInstance.id}" class="urlWidth">${fieldValue(bean: crawlerSessionInstance, field: "id")}</g:link></td>
 						<td><g:link action="show" id="${crawlerSessionInstance.id}" class="urlWidth">${fieldValue(bean: crawlerSessionInstance, field: "seed")}</g:link></td>
 					
-						<td>${fieldValue(bean: crawlerSessionInstance, field: "numCrawlers")}</td>
+						<!--<td>${fieldValue(bean: crawlerSessionInstance, field: "numCrawlers")}</td>
 					
-						<td>${fieldValue(bean: crawlerSessionInstance, field: "depth")}</td>
+						<td>${fieldValue(bean: crawlerSessionInstance, field: "depth")}</td>-->
 					
 						<td><g:formatDate date="${crawlerSessionInstance.dateCreated}" /></td>
 					
-						<td>${fieldValue(bean: crawlerSessionInstance, field: "jail")}</td>
+						<!--<td>${fieldValue(bean: crawlerSessionInstance, field: "jail")}</td>-->
 					
 					</tr>
 				</g:each>

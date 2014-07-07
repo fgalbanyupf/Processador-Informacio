@@ -37,7 +37,6 @@ environments {
                               password = "root"
                               
 		    }
-                    
 	  }
 	  test {
 		    dataSource {

@@ -48,7 +48,9 @@
 		<div id="page-body" role="main">
 			<h1><g:message code="application.title"/></h1>
 			<p style="text-align:justify"><g:message code="application.introText"/> <br/><br/>
-
+                        <b><g:message code="application.crawlerTools.label" default="Web crawling" /></b><br/>
+                        <g:link controller="crawlerSession"><g:message code="crawlerSession.label" default="Crawler Session" /></g:link>
+                        <br/>
                         <b><g:message code="application.dbTools.label" default="Database definition" /></b><br/>
                         <g:link controller="DBField"><g:message code="DBField.label" default="Database Field" /></g:link> | 
                         <g:link controller="DBPlugin"><g:message code="DBPlugin.label" default="Database Plugin" /></g:link> 
@@ -58,9 +60,6 @@
                         <g:link controller="BIMeasure"><g:message code="BIMeasure.label" default="Measure" /></g:link> |
                         <g:link controller="BISchemaTemplate"><g:message code="BISchemaTemplate.label" default="Schema Template" /></g:link> | 
                         <b><a href="${grailsApplication.config.bisystem.link}"><g:message code="application.accessSaiku.label" default="Go to Saiku" /></a></b>
-                        <br/>
-                        <b><g:message code="application.crawlerTools.label" default="Web crawling" /></b><br/>
-                        <g:link controller="crawlerSession"><g:message code="crawlerSession.label" default="Crawler Session" /></g:link>
                         </p>
 		</div>
 	</body>
